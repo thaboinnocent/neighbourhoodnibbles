@@ -14,7 +14,8 @@
     --pink:#F6B8CE;
     --rose:#E2789B;
     --rose-deep:#C85578;
-    --cookie:#C68958;
+    --leaf:#8FAE7A;
+    --petal:#F6B8CE;
     --ink:#4A3B3B;
     --ink-soft:#8A7373;
   }
@@ -73,7 +74,7 @@
     border-bottom:1px solid rgba(226,120,155,0.15);
   }
   .brand{ font-family:'Fraunces', serif; font-size:1.25rem; font-weight:700; display:flex; align-items:center; gap:8px; }
-  .brand .crumb{ width:9px; height:9px; border-radius:50%; background:var(--cookie); box-shadow:6px 2px 0 -1px var(--cookie), -4px 3px 0 -1px var(--rose-deep); }
+  .brand .crumb{ width:9px; height:9px; border-radius:50%; background:var(--leaf); box-shadow:6px 2px 0 -1px var(--leaf), -4px 3px 0 -1px var(--rose-deep); }
   nav a{
     text-decoration:none;
     font-weight:600;
@@ -98,7 +99,7 @@
   }
   .hero h1 em{
     font-style:normal;
-    color:var(--cookie);
+    color:var(--leaf);
     position:relative;
   }
   .hero p.sub{
@@ -119,32 +120,34 @@
     color:var(--rose-deep);
   }
 
-  /* a single hand-drawn scalloped cookie, pure CSS, as the hero's signature mark */
-  .cookie-mark{
+  /* a simple hand-drawn flower, pure CSS, as the hero's signature mark */
+  .flower-mark{
     width:150px; height:150px;
     margin:44px auto 0;
-    border-radius:50%;
-    background:
-      radial-gradient(circle at 30% 32%, rgba(74,59,59,0.18) 0 5px, transparent 6px),
-      radial-gradient(circle at 62% 28%, rgba(74,59,59,0.18) 0 4px, transparent 5px),
-      radial-gradient(circle at 44% 55%, rgba(74,59,59,0.18) 0 6px, transparent 7px),
-      radial-gradient(circle at 72% 62%, rgba(74,59,59,0.18) 0 4px, transparent 5px),
-      radial-gradient(circle at 28% 70%, rgba(74,59,59,0.18) 0 5px, transparent 6px),
-      #E9AC72;
-    -webkit-mask-image: repeating-radial-gradient(circle at 50% 50%, #000 0 8px, transparent 9px 0);
-    mask-image: repeating-radial-gradient(circle at 50% 50%, #000 0 8px, transparent 9px 0);
-    -webkit-mask-size: 300% 300%;
-    mask-size: 300% 300%;
-    -webkit-mask-position:center;
-    mask-position:center;
+    position:relative;
   }
-  /* the mask trick above can render inconsistently across browsers, so we layer a plain scalloped edge as a reliable fallback look */
-  .cookie-mark{
-    -webkit-mask-image:none; mask-image:none;
-    box-shadow:
-      0 0 0 6px var(--cream),
-      0 0 0 8px var(--pink);
-    border-radius:46% 54% 52% 48% / 50% 46% 54% 50%;
+  .flower-mark .petal{
+    position:absolute;
+    width:52px; height:68px;
+    background:var(--petal);
+    border-radius:60% 60% 60% 60% / 70% 70% 30% 30%;
+    top:50%; left:50%;
+    transform-origin:50% 100%;
+  }
+  .flower-mark .petal:nth-child(1){ transform:translate(-50%,-100%) rotate(0deg); }
+  .flower-mark .petal:nth-child(2){ transform:translate(-50%,-100%) rotate(72deg); }
+  .flower-mark .petal:nth-child(3){ transform:translate(-50%,-100%) rotate(144deg); }
+  .flower-mark .petal:nth-child(4){ transform:translate(-50%,-100%) rotate(216deg); }
+  .flower-mark .petal:nth-child(5){ transform:translate(-50%,-100%) rotate(288deg); }
+  .flower-mark .center{
+    position:absolute;
+    width:34px; height:34px;
+    background:var(--cookie, #E9AC72);
+    background:#F1C177;
+    border-radius:50%;
+    top:50%; left:50%;
+    transform:translate(-50%,-50%);
+    box-shadow:0 0 0 6px var(--cream), 0 0 0 8px var(--blush);
   }
 
   /* ---------- section shell ---------- */
@@ -224,7 +227,7 @@
   }
   footer .crumb-row{ display:flex; justify-content:center; gap:10px; margin-bottom:14px; }
   footer .crumb-row span{ width:8px; height:8px; border-radius:50%; background:var(--pink); }
-  footer .crumb-row span:nth-child(2){ background:var(--cookie); }
+  footer .crumb-row span:nth-child(2){ background:var(--leaf); }
   footer .crumb-row span:nth-child(3){ background:var(--rose); }
 
   @media (max-width: 720px){
@@ -250,9 +253,16 @@
 <section class="hero">
   <span class="eyebrow">a homemade little archive</span>
   <h1>Neighbourhood & <em>Nibbles</em></h1>
-  <p class="sub">Every batch we baked, every mess we made, every photo from the day &mdash; all landing right here.</p>
+  <p class="sub">Pick Flowers. Share Sips. Cook Together. Yap Forever.</p>
   <span class="date-pill">📍 the gallery below is warming up in the oven</span>
-  <div class="cookie-mark"></div>
+  <div class="flower-mark">
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="petal"></div>
+    <div class="center"></div>
+  </div>
 </section>
 
 <section id="about" class="about">
@@ -284,7 +294,7 @@
   <div class="section-head">
     <span class="eyebrow">The Gallery</span>
     <h2>From the day itself</h2>
-    <p>Empty for now &mdash; every frame below fills in once we have the pictures.</p>
+    <p> every frame below filled with blooming memories .</p>
   </div>
   <div id="gallery-grid"></div>
 </section>
@@ -344,7 +354,7 @@
     } else {
       fig.innerHTML = `
         <div class="placeholder-inner">
-          <span class="icon">🍪</span>
+          <span class="icon">🌸</span>
           <span class="label">coming soon</span>
         </div>`;
     }
