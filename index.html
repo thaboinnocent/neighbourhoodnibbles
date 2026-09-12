@@ -333,10 +333,22 @@
   }
 
   @media (max-width: 720px){
-    .about-grid{ grid-template-columns:1fr; }
-    header{ padding:16px 5vw; }
-    nav a{ margin-left:16px; font-size:0.82rem; }
-    .frame{ width:42vw; margin:0 8px 40px; padding:10px 10px 16px; }
+  .about-grid{ grid-template-columns:1fr; }
+  header{ padding:16px 5vw; }
+  nav a{ margin-left:16px; font-size:0.82rem; }
+
+  #gallery-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:22px 12px;
+    padding:16px 12px 6px;
+  }
+  .frame{
+    width:100%;
+    margin:0 !important;
+    padding:8px 8px 14px;
+  }
+}
   }
 </style>
 </head>
