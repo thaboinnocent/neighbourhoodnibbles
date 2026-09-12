@@ -6,7 +6,7 @@
 <title>Neighbourhood & Nibbles</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Quicksand:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=Quicksand:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --cream:#FFF8F3;
@@ -161,62 +161,118 @@
   .about-grid{
     display:grid;
     grid-template-columns:repeat(3, 1fr);
-    gap:28px;
-    max-width:900px;
+    gap:34px 28px;
+    max-width:920px;
     margin:0 auto;
+    padding-top:6px;
   }
   .about-card{
-    background:var(--cream);
-    border-radius:18px;
-    padding:26px 22px;
+    position:relative;
+    background:#fffdfb;
+    border-radius:8px;
+    padding:30px 22px 24px;
     text-align:center;
+    box-shadow:0 10px 22px -12px rgba(74,59,59,0.25);
+    transform:rotate(var(--card-rot, 0deg));
+    transition:transform .3s ease, box-shadow .3s ease;
   }
+  .about-card:nth-child(1){ --card-rot:-2.5deg; }
+  .about-card:nth-child(2){ --card-rot:1.5deg; }
+  .about-card:nth-child(3){ --card-rot:-1.5deg; }
+  .about-card:hover{
+    transform:rotate(0deg) translateY(-4px);
+    box-shadow:0 18px 32px -14px rgba(200,85,120,0.35);
+  }
+  .about-card .tape{
+    position:absolute;
+    top:-10px;
+    left:50%;
+    width:58px;
+    height:20px;
+    background:repeating-linear-gradient(135deg, rgba(230,150,175,0.75), rgba(230,150,175,0.75) 6px, rgba(255,240,244,0.75) 6px, rgba(255,240,244,0.75) 12px);
+    box-shadow:0 3px 5px rgba(0,0,0,0.12);
+    transform:translateX(-50%) rotate(var(--tape-rot, -4deg));
+  }
+  .about-card:nth-child(1) .tape{ --tape-rot:-6deg; }
+  .about-card:nth-child(2) .tape{ --tape-rot:4deg; }
+  .about-card:nth-child(3) .tape{ --tape-rot:-3deg; }
+  .about-card .icon{ font-size:1.7rem; display:block; margin-bottom:6px; }
   .about-card .num{ font-family:'Space Mono', monospace; color:var(--rose); font-size:0.8rem; }
   .about-card h3{ font-size:1.05rem; margin:8px 0 6px; }
   .about-card p{ font-size:0.9rem; color:var(--ink-soft); margin:0; }
 
-  /* ---------- gallery ---------- */
+  /* ---------- gallery: scrapbook layout ---------- */
   #gallery-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill, minmax(240px, 1fr));
-    gap:22px;
-    max-width:1100px;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:flex-start;
+    gap:8px 6px;
+    max-width:1180px;
     margin:0 auto;
+    padding:20px 10px 10px;
   }
   .frame{
     position:relative;
-    aspect-ratio:1/1;
-    border-radius:20px;
+    width:250px;
+    margin:0 20px 46px;
+    background:#fffdfb;
+    border:1px solid rgba(74,59,59,0.06);
+    border-radius:3px;
+    padding:14px 14px 20px;
+    box-shadow:0 10px 22px -10px rgba(74,59,59,0.28);
+    opacity:0;
+    --rot:0deg;
+    transform:translateY(28px) rotate(var(--rot));
+    transition:opacity .7s ease, transform .45s ease, box-shadow .3s ease;
+  }
+  .frame.visible{ opacity:1; transform:rotate(var(--rot)); }
+  .frame.filled{ cursor:zoom-in; }
+  .frame.filled:hover{
+    transform:rotate(0deg) translateY(-6px) scale(1.045);
+    box-shadow:0 22px 40px -14px rgba(200,85,120,0.4);
+    z-index:5;
+  }
+  .media-box{
+    position:relative;
+    aspect-ratio:4/5;
+    border-radius:2px;
     overflow:hidden;
     background:var(--blush);
-    border:2px dashed var(--pink);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
   }
   .frame img, .frame video{
     width:100%; height:100%;
     object-fit:cover;
     display:block;
     border:none;
+    transition:transform .5s ease;
   }
-  .frame.filled{ border-style:solid; }
+  .frame.filled:hover img, .frame.filled:hover video{ transform:scale(1.06); }
+  .tape{
+    position:absolute;
+    top:-11px;
+    left:50%;
+    width:64px;
+    height:22px;
+    background:repeating-linear-gradient(135deg, rgba(230,150,175,0.75), rgba(230,150,175,0.75) 6px, rgba(255,240,244,0.75) 6px, rgba(255,240,244,0.75) 12px);
+    box-shadow:0 3px 5px rgba(0,0,0,0.12);
+    transform:translateX(-50%) rotate(var(--tape-rot, -4deg));
+    pointer-events:none;
+  }
   .placeholder-inner{ padding:18px; color:var(--rose-deep); }
   .placeholder-inner .icon{ font-size:1.8rem; display:block; margin-bottom:6px; }
   .placeholder-inner .label{ font-family:'Space Mono', monospace; font-size:0.72rem; letter-spacing:0.05em; color:var(--ink-soft); }
-  figure.frame{ margin:0; }
+  figure.frame{ margin-top:0; }
   figcaption{
-    position:absolute;
-    bottom:0; left:0; right:0;
-    padding:10px 12px 8px;
-    font-size:0.78rem;
-    background:linear-gradient(to top, rgba(0,0,0,0.45), transparent);
-    color:#fff;
-    opacity:0;
-    transition:opacity .2s;
+    display:block;
+    padding:12px 4px 0;
+    font-family:'Caveat', cursive;
+    font-weight:600;
+    font-size:1.28rem;
+    line-height:1.15;
+    text-align:center;
+    color:var(--ink);
   }
-  .frame.filled:hover figcaption{ opacity:1; }
 
   /* ---------- footer ---------- */
   footer{
@@ -230,10 +286,57 @@
   footer .crumb-row span:nth-child(2){ background:var(--leaf); }
   footer .crumb-row span:nth-child(3){ background:var(--rose); }
 
+  /* ---------- lightbox ---------- */
+  .lightbox{
+    position:fixed;
+    inset:0;
+    background:rgba(30,20,20,0.86);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:5vh 5vw;
+    z-index:100;
+    opacity:0;
+    pointer-events:none;
+    transition:opacity .3s ease;
+  }
+  .lightbox.open{ opacity:1; pointer-events:auto; }
+  .lightbox img, .lightbox video{
+    max-width:100%;
+    max-height:88vh;
+    border-radius:14px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.5);
+  }
+  .lightbox-close{
+    position:absolute;
+    top:24px; right:32px;
+    width:40px; height:40px;
+    border-radius:50%;
+    background:var(--cream);
+    color:var(--rose-deep);
+    border:none;
+    font-size:1.3rem;
+    line-height:1;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .lightbox-caption{
+    position:absolute;
+    bottom:5vh;
+    left:0; right:0;
+    text-align:center;
+    color:#fff;
+    font-size:0.9rem;
+    opacity:0.85;
+  }
+
   @media (max-width: 720px){
     .about-grid{ grid-template-columns:1fr; }
     header{ padding:16px 5vw; }
     nav a{ margin-left:16px; font-size:0.82rem; }
+    .frame{ width:42vw; margin:0 8px 40px; padding:10px 10px 16px; }
   }
 </style>
 </head>
@@ -269,20 +372,26 @@
   <div class="section-head">
     <span class="eyebrow">Before the photos</span>
     <h2>What this page is for</h2>
-    <p>A little home for everything from the day &mdash; nothing fancy, just ours.</p>
+    <p>A little home for everything from the day, nothing fancy, just ours.</p>
   </div>
   <div class="about-grid">
     <div class="about-card">
+      <div class="tape"></div>
+      <span class="icon">🥂</span>
       <div class="num">01</div>
-      <h3>The bake</h3>
+      <h3>The nibbles</h3>
       <p>Once the day happens, this is where the story of it lives.</p>
     </div>
     <div class="about-card">
+      <div class="tape"></div>
+      <span class="icon">📸</span>
       <div class="num">02</div>
       <h3>The photos</h3>
       <p>Every picture we snap gets a little frame of its own below.</p>
     </div>
     <div class="about-card">
+      <div class="tape"></div>
+      <span class="icon">🎬</span>
       <div class="num">03</div>
       <h3>The videos</h3>
       <p>Clips from the day slot right in next to the photos.</p>
@@ -303,6 +412,12 @@
   <div class="crumb-row"><span></span><span></span><span></span></div>
   Neighbourhood & Nibbles &middot; made with love, filled in later
 </footer>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightbox-close" aria-label="Close">&times;</button>
+  <div id="lightbox-content"></div>
+  <div class="lightbox-caption" id="lightbox-caption"></div>
+</div>
 
 <script>
   /* ============================================================
@@ -333,6 +448,16 @@
     { type: "photo", src: "media/img_07.jpg", caption: "the whole crew, take two" },
     { type: "photo", src: "media/img_12.jpg", caption: "the girls, back to back" },
     { type: "photo", src: "media/img_13.jpg", caption: "the girls, one more time" },
+    { type: "photo", src: "media/img_14.jpg", caption: "close together, golden hour" },
+    { type: "photo", src: "media/img_15.jpg", caption: "one more for the road" },
+    { type: "video", src: "media/clip_01.mp4", caption: "sitting on the grass, mid-story" },
+    { type: "video", src: "media/clip_02.mp4", caption: "dinner table, laughing over the food" },
+    { type: "video", src: "media/clip_03.mp4", caption: "heading off as the sun goes down" },
+    { type: "video", src: "media/clip_04.mp4", caption: "cards on the lawn, golden light" },
+    { type: "photo", src: "media/img_16.jpg", caption: "every name card laid out on the grass" },
+    { type: "photo", src: "media/img_17.jpg", caption: "30 Seconds and a half-finished chess game" },
+    { type: "photo", src: "media/img_18.jpg", caption: "the house, before everyone arrived" },
+    { type: "photo", src: "media/img_19.jpg", caption: "the nachos, fully loaded" },
 
     // Example of what a real entry looks like once you have photos —
     // just uncomment and edit the line below, or copy its shape:
@@ -341,23 +466,88 @@
   ];
 
   const grid = document.getElementById("gallery-grid");
+  const lightbox = document.getElementById("lightbox");
+  const lightboxContent = document.getElementById("lightbox-content");
+  const lightboxCaption = document.getElementById("lightbox-caption");
+  const lightboxClose = document.getElementById("lightbox-close");
 
-  media.forEach((item) => {
-    const fig = document.createElement("figure");
-    fig.className = "frame";
-
+  function openLightbox(item) {
+    lightboxContent.innerHTML = "";
     if (item.type === "photo") {
-      fig.classList.add("filled");
       const img = document.createElement("img");
       img.src = item.src;
-      img.alt = item.caption || "Neighbourhood & Nibbles photo";
-      fig.appendChild(img);
+      img.alt = item.caption || "";
+      lightboxContent.appendChild(img);
     } else if (item.type === "video") {
-      fig.classList.add("filled");
       const vid = document.createElement("video");
       vid.src = item.src;
       vid.controls = true;
-      fig.appendChild(vid);
+      vid.autoplay = true;
+      vid.playsInline = true;
+      lightboxContent.appendChild(vid);
+    }
+    lightboxCaption.textContent = item.caption || "";
+    lightbox.classList.add("open");
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove("open");
+    lightboxContent.innerHTML = "";
+  }
+
+  lightboxClose.addEventListener("click", closeLightbox);
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) closeLightbox();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeLightbox();
+  });
+
+  // deterministic "random" rotation & vertical stagger so it looks
+  // hand-scattered but doesn't jitter between page loads
+  const rotations = [-6, 4, -3, 6, -5, 2, -4, 5, -2, 3, -7, 4.5];
+  const liftOffsets = [0, 22, -12, 30, -18, 10, -24, 16, 4, -8, 20, -14];
+  const tapeRotations = [-5, 4, -6, 3, -3, 6, -4, 5];
+
+  media.forEach((item, index) => {
+    const fig = document.createElement("figure");
+    fig.className = "frame";
+    fig.style.setProperty("--rot", `${rotations[index % rotations.length]}deg`);
+    fig.style.setProperty("--tape-rot", `${tapeRotations[index % tapeRotations.length]}deg`);
+    fig.style.marginTop = `${liftOffsets[index % liftOffsets.length]}px`;
+    fig.style.transitionDelay = `${(index % 8) * 70}ms`;
+
+    if (item.type === "photo" || item.type === "video") {
+      fig.classList.add("filled");
+
+      const tape = document.createElement("div");
+      tape.className = "tape";
+      fig.appendChild(tape);
+
+      const box = document.createElement("div");
+      box.className = "media-box";
+
+      if (item.type === "photo") {
+        const img = document.createElement("img");
+        img.src = item.src;
+        img.alt = item.caption || "Neighbourhood & Nibbles photo";
+        box.appendChild(img);
+        fig.addEventListener("click", () => openLightbox(item));
+      } else {
+        const vid = document.createElement("video");
+        vid.src = item.src;
+        vid.controls = true;
+        vid.autoplay = true;
+        vid.muted = true;
+        vid.loop = true;
+        vid.playsInline = true;
+        box.appendChild(vid);
+        fig.addEventListener("click", (e) => {
+          if (e.target !== vid) openLightbox(item);
+        });
+      }
+
+      fig.appendChild(box);
     } else {
       fig.innerHTML = `
         <div class="placeholder-inner">
@@ -374,6 +564,17 @@
 
     grid.appendChild(fig);
   });
+
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("visible");
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll(".frame").forEach((fig) => revealObserver.observe(fig));
 </script>
 
 </body>
